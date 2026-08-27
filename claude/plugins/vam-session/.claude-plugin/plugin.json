@@ -1,0 +1,13 @@
+{
+  "name": "vam-session",
+  "description": "Session continuity for long-running work — compact the current conversation into a handoff document that a fresh session, a different agent, or a teammate can act on without the original transcript.",
+  "version": "0.1.1",
+  "author": {
+    "name": "Vasyl Marchenko",
+    "email": "vasily.a.marchenko@gmail.com"
+  },
+  "homepage": "https://github.com/vasilymarchenko/ai-units",
+  "repository": "https://github.com/vasilymarchenko/ai-units",
+  "license": "MIT",
+  "keywords": ["handoff", "context", "continuity"]
+}

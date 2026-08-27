@@ -1,0 +1,22 @@
+# Secrets and machine-local state — never commit
+*.local.json
+.env
+.env.*
+!.env.example
+.credentials.json
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Build / tooling
+node_modules/
+__pycache__/
+*.log
+
+# Personal / employer-specific material — never public
+.personal/

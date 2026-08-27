@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "obsidian-example": {
+      "command": "npx",
+      "args": [
+        "@bitbonsai/mcpvault@0.16.0",
+        "${VAM_VAULT_EXAMPLE}"
+      ],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "vam-knowledge",
+  "description": "Personal knowledge base worked as a loop: bootstrap and repair the vault contract, recall prior notes before re-solving a problem, capture durable repo-grounded knowledge, garden the vault as it decays, and map unfamiliar codebases through a structured level-by-level recon. Vault-agnostic: the target vault is resolved at runtime from references/vaults.md, and mounted by a separate vam-vault-* connector plugin.",
+  "version": "0.4.0",
+  "author": {
+    "name": "Vasyl Marchenko",
+    "email": "vasily.a.marchenko@gmail.com"
+  },
+  "homepage": "https://github.com/vasilymarchenko/ai-units",
+  "repository": "https://github.com/vasilymarchenko/ai-units",
+  "license": "MIT",
+  "keywords": [
+    "knowledge-base",
+    "obsidian",
+    "notes",
+    "onboarding",
+    "codebase-mapping"
+  ]
+}

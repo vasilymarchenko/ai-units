@@ -1,0 +1,33 @@
+{
+  "name": "vam-ai-units",
+  "version": "1.0.0",
+  "description": "Vasyl Marchenko's personal AI units — knowledge-base and session-continuity skills for Claude Code.",
+  "homepage": "https://github.com/vasilymarchenko/ai-units",
+  "owner": {
+    "name": "Vasyl Marchenko",
+    "email": "vasily.a.marchenko@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "vam-knowledge",
+      "description": "Personal knowledge base worked as a loop: bootstrap and repair the vault contract, read prior notes before re-solving a problem, write durable grounded notes, garden the vault as it decays, and map unfamiliar codebases level by level. Vault-agnostic — pair it with one or more vam-vault-* connectors.",
+      "source": "./claude/plugins/vam-knowledge",
+      "category": "productivity",
+      "version": "0.4.0"
+    },
+    {
+      "name": "vam-session",
+      "description": "Session continuity — compact a conversation into a handoff document a fresh session, another agent, or a teammate can pick up cold.",
+      "source": "./claude/plugins/vam-session",
+      "category": "productivity",
+      "version": "0.1.1"
+    },
+    {
+      "name": "vam-vault-template",
+      "description": "Vault connector — mounts an Obsidian vault as the obsidian-<slug> MCP server, reading its path from ${VAM_VAULT_<SLUG>}. Usable as-is for a single vault (obsidian-example / VAM_VAULT_EXAMPLE); copy it to vam-vault-<slug>/ for more.",
+      "source": "./claude/plugins/vaults/vam-vault-template",
+      "category": "productivity",
+      "version": "0.1.1"
+    }
+  ]
+}
