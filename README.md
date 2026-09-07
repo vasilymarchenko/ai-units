@@ -124,7 +124,7 @@ plugin-provided servers.
 In Claude Code:
 
 ```
-/vam-vault-setup
+/vam-knowledge:vault-setup
 ```
 
 The skills defer to two notes inside the vault — `_meta/vault-conventions.md`
@@ -132,7 +132,7 @@ The skills defer to two notes inside the vault — `_meta/vault-conventions.md`
 (the closed tag set) — rather than imposing a structure on someone's vault.
 **Until those exist, every write refuses**, by design.
 
-`vam-vault-setup` diagnoses what is missing, asks about six questions with a
+`vault-setup` diagnoses what is missing, asks about six questions with a
 default for each, writes both notes, and scaffolds the folders and MOCs they
 describe. It is also the thing to run when something breaks later: it checks the
 connector, the path expansion, read-only mode, and whether the contract is
@@ -142,11 +142,11 @@ complete. An existing vault is patched, never overwritten.
 
 | Say | Skill |
 |---|---|
-| "what do I know about X" | `vam-kb-recall` |
-| "save this to my kb" | `vam-kb-capture` |
-| "organize / audit my vault" | `vam-kb-organize` |
-| "help me map this codebase" | `vam-project-recon` |
-| "hand this off" | `vam-handoff` |
+| "what do I know about X" | `vam-knowledge:recall` |
+| "save this to my kb" | `vam-knowledge:capture` |
+| "organize / audit my vault" | `vam-knowledge:organize` |
+| "help me map this codebase" | `vam-knowledge:map-project` |
+| "hand this off" | `vam-session:handoff` |
 
 Skills trigger from intent, so invoking them by name is optional.
 
@@ -160,7 +160,7 @@ Skills trigger from intent, so invoking them by name is optional.
 | writes refused, reads fine | connector has `--read-only` in its `args` |
 | a skill appears twice | same skill in `~/.claude/skills/` *and* a plugin — delete the personal copy |
 
-`/vam-vault-setup` diagnoses all of these; the table is for when you would rather
+`/vam-knowledge:vault-setup` diagnoses all of these; the table is for when you would rather
 not ask.
 
 ### A note on the pinned connector
@@ -182,8 +182,8 @@ Either way the value lives in the connector plugin, so the choice is per vault.
 
 | Plugin | Kind | Contents | Needs |
 |---|---|---|---|
-| `vam-knowledge` | skills | `vam-vault-setup`, `vam-kb-recall`, `vam-kb-capture`, `vam-kb-organize`, `vam-project-recon` | a vault connector below |
-| `vam-session` | skills | `vam-handoff` | nothing |
+| `vam-knowledge` | skills | `vault-setup`, `recall`, `capture`, `organize`, `map-project` | a vault connector below |
+| `vam-session` | skills | `handoff` | nothing |
 | `vam-vault-kb` | connector | the `obsidian-kb` MCP server; copy it per extra vault | `npx`, `VAM_VAULT_KB` |
 
 ### Skills and vaults are separate units
@@ -216,8 +216,8 @@ enabled plugin's `skills/`:
 
 ```
 ~/.claude/plugins/cache/vam-ai-units/
-├── vam-knowledge/0.4.0/          # .claude-plugin/, references/, skills/
-├── vam-session/0.1.1/
+├── vam-knowledge/0.5.0/          # .claude-plugin/, references/, skills/
+├── vam-session/0.2.0/  
 └── vam-vault-<slug>/0.1.1/      # .mcp.json
 ```
 
@@ -225,7 +225,7 @@ Consequences worth knowing:
 
 **Keep skills in exactly one root.** A skill present both in `~/.claude/skills/`
 and in a plugin appears **twice** — the plugin's namespaced as
-`vam-knowledge:vam-kb-recall`, the personal one bare as `vam-kb-recall`. They do
+`vam-knowledge:recall`, the personal one bare as `recall`. They do
 not shadow each other; both are live and the model picks between two identical
 descriptions. Once a skill lives in a plugin here, delete the personal copy.
 

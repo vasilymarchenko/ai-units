@@ -1,6 +1,6 @@
 ---
-name: vam-handoff
-description: Compact the current conversation into a handoff document so a fresh session, a different agent, or a teammate can pick up the work without losing context. Use this whenever the user asks to hand off, wrap up, "write this up for next time", save or dump the context, prepare a continuation doc, brief another agent, or mentions they're running low on context or about to start a fresh chat — including when they invoke /vam-handoff. Do not use it for summarizing an external document or article the user just gave you; this is for the conversation itself.
+name: handoff
+description: Compact the current conversation into a handoff document so a fresh session, a different agent, or a teammate can pick up the work without losing context. Use this whenever the user asks to hand off, wrap up, "write this up for next time", save or dump the context, prepare a continuation doc, brief another agent, or mentions they're running low on context or about to start a fresh chat — including when they invoke /vam-session:handoff. Do not use it for summarizing an external document or article the user just gave you; this is for the conversation itself.
 ---
 
 # Handoff

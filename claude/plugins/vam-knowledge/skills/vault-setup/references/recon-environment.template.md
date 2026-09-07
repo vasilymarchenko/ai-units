@@ -10,14 +10,14 @@ updated: <YYYY-MM-DD>
 source: <conversation YYYY-MM-DD — vault setup>
 ---
 <!-- TEMPLATE — delete this block once adapted.
-     Written to _meta/recon-environment.md by vam-vault-setup.
-     OPTIONAL: only vam-project-recon reads it, and that skill degrades to
+     Written to _meta/recon-environment.md by vault-setup.
+     OPTIONAL: only map-project reads it, and that skill degrades to
      asking for a repo path once per session when it is absent.
-     Section numbers match vam-project-recon/references/environment.md —
+     Section numbers match map-project/references/environment.md —
      §1 repo roots, §4 project-specific tooling. Do not renumber. -->
 # Recon Environment
 
-**Machine-local facts for `vam-project-recon`.** The `vam-knowledge` plugin is public and project-agnostic, so its `references/environment.md` carries only the *contract* — what must be known and what to do when it is not. The values that satisfy it live here, next to the notes describing the same systems.
+**Machine-local facts for `map-project`.** The `vam-knowledge` plugin is public and project-agnostic, so its `references/environment.md` carries only the *contract* — what must be known and what to do when it is not. The values that satisfy it live here, next to the notes describing the same systems.
 
 Read this before the first recon cycle of a session. Sections are numbered to match `environment.md`. If a section is missing, use that section's fallback and say which value was assumed.
 
@@ -39,7 +39,7 @@ Use when present in the session; skip silently when not. Never block a cycle on 
 |---|---|
 | `<mcp server or cli>` | `<when to reach for it — and what it beats>` |
 
-The portable tooling — `vam-kb-recall`, `vam-kb-organize`, and the `Explore` and `general-purpose` subagents — is listed in the plugin's own `environment.md` §4 and needs no entry here.
+The portable tooling — `recall`, `organize`, and the `Explore` and `general-purpose` subagents — is listed in the plugin's own `environment.md` §4 and needs no entry here.
 
 ## Why this note exists
 

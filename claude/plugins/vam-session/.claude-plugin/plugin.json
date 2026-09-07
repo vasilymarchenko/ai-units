@@ -1,7 +1,7 @@
 {
   "name": "vam-session",
   "description": "Session continuity for long-running work — compact the current conversation into a handoff document that a fresh session, a different agent, or a teammate can act on without the original transcript.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": {
     "name": "Vasyl Marchenko",
     "email": "vasily.a.marchenko@gmail.com"

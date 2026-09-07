@@ -1,9 +1,9 @@
 ---
-name: vam-project-recon
+name: map-project
 description: Map an unfamiliar large codebase through a structured, level-by-level interview, researching each answer in the repo and writing the findings into the user's Obsidian vault. Use when onboarding onto a big or legacy project, when the user says they need to understand or map a system they did not write, asks "help me figure out this project", "I'm new to this repo, where do I start", "explore this project and save what you find". ALSO use to continue an existing recon, which usually sounds like ordinary vault work — "look at <project> MOC, let's do the next level", "explore/run the first vertical drill", "trace sign-in end to end", "pick up the recon", "what's next on <project>", or naming a queued flow note. A drill or level request that lands in the vault is recon, not recall. Do NOT use for a small codebase readable in one sitting, for debugging one specific bug, or for code the user already knows.
 ---
 
-# Project Recon
+# Map Project
 
 Turn an unfamiliar codebase into a trustworthy map in the vault, one cycle at a time.
 

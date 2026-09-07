@@ -36,11 +36,11 @@ plugin:vam-vault-kb:obsidian-kb: npx @bitbonsai/mcpvault@0.16.0 D:\Notes\MyVault
 A literal `${VAM_VAULT_KB}` in that line means the variable is unset. The
 server still reports **Connected** — it mounts a path that does not exist — so
 the empty-looking vault that follows is a configuration fault, not an empty
-vault. `vam-vault-setup` owns that diagnosis.
+vault. `vault-setup` owns that diagnosis.
 
 ## After installing
 
-Run `/vam-knowledge:vam-vault-setup` once against this vault. It writes
+Run `/vam-knowledge:vault-setup` once against this vault. It writes
 `_meta/vault-conventions.md` and `_meta/tag-vocabulary.md`; without them every
 other `vam-knowledge` skill refuses to write.
 

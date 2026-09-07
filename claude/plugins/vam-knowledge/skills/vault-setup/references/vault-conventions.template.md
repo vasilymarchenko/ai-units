@@ -10,15 +10,15 @@ updated: <YYYY-MM-DD>
 source: <conversation YYYY-MM-DD — vault setup>
 ---
 <!-- TEMPLATE — delete this block once adapted.
-     Written to _meta/vault-conventions.md by vam-vault-setup.
+     Written to _meta/vault-conventions.md by vault-setup.
      Substitute every <placeholder> from the interview answers.
-     NEVER renumber the sections: vam-kb-capture and vam-kb-organize cite
+     NEVER renumber the sections: capture and organize cite
      them by number (§1 placement, §3 frontmatter, §4 naming, §5 linking,
      §6 skeletons, §7 grounding, §9 recon).
      Delete a section's *rows* if unused; never delete the section. -->
 # Vault Conventions
 
-The contract every note in this vault follows. The `vam-kb-capture`, `vam-kb-organize` and `vam-kb-recall` skills read this file as their source of truth — if a rule changes, change it **here**, not in the skills.
+The contract every note in this vault follows. The `capture`, `organize` and `recall` skills read this file as their source of truth — if a rule changes, change it **here**, not in the skills.
 
 Companion: [[tag-vocabulary]]. Entry point: [[Home]].
 
@@ -98,7 +98,7 @@ Keys are flat and consistently named so Dataview can query them once installed. 
 - Every MOC lists its notes, grouped by type.
 - Notes captured in the **same session** share a `source` and get cross-linked — that provenance edge records *why these things came up together*, often the most valuable link in the graph.
 - Links are `[[wiki-links]]` by basename. Because basenames are unique (§4), paths are not needed.
-- A `[[link]]` to a note that does not exist yet is **allowed and encouraged** — it marks a gap worth filling. `vam-kb-organize` reports these as intentional stubs, not errors.
+- A `[[link]]` to a note that does not exist yet is **allowed and encouraged** — it marks a gap worth filling. `organize` reports these as intentional stubs, not errors.
 
 ## 6. Section skeletons by type
 
@@ -132,7 +132,7 @@ Passing trivia, one-off command output, anything already documented in a repo's 
 
 ## 9. Learning a new project (recon)
 
-The `vam-project-recon` skill runs a structured interview to map an unfamiliar codebase. Its output obeys everything above — it does **not** define a second taxonomy. Three additional conventions apply:
+The `map-project` skill runs a structured interview to map an unfamiliar codebase. Its output obeys everything above — it does **not** define a second taxonomy. Three additional conventions apply:
 
 **Knowledge lands by subject, not by level.** A recon proceeds through levels (purpose → boundaries → structure → domain → flow → …), but the level is a property of the *session*, not of the vault. What it learns about architecture becomes `<repo-slug>-architecture.md` (`type: concept`), not `Level 3 Structure.md`. A vault organized by the order you happened to learn things ages badly.
 

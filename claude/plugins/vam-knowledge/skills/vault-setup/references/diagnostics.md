@@ -92,14 +92,14 @@ A present-but-incomplete contract is worse than a missing one: the skills load i
 
 | § | Must define | Cited by |
 |---|---|---|
-| 1 | folder taxonomy + ordered placement rules | `vam-kb-capture` A3, `vam-kb-organize` pass 1 |
-| 2 | the closed set of note types | `vam-kb-organize` pass 2 |
-| 3 | frontmatter schema + status ladder | `vam-kb-capture` A5, `vam-kb-organize` pass 2 |
-| 4 | naming rules for notes and MOCs | `vam-kb-organize` pass 1 |
-| 5 | linking rules, incl. stub links being healthy | `vam-kb-organize` pass 4 |
-| 6 | section skeleton per note type | `vam-kb-capture` A5 |
-| 7 | grounding rules — pointers, `repo_ref`, repo-over-conversation | `vam-kb-capture` A2 |
-| 9 | recon conventions | `vam-project-recon` |
+| 1 | folder taxonomy + ordered placement rules | `capture` A3, `organize` pass 1 |
+| 2 | the closed set of note types | `organize` pass 2 |
+| 3 | frontmatter schema + status ladder | `capture` A5, `organize` pass 2 |
+| 4 | naming rules for notes and MOCs | `organize` pass 1 |
+| 5 | linking rules, incl. stub links being healthy | `organize` pass 4 |
+| 6 | section skeleton per note type | `capture` A5 |
+| 7 | grounding rules — pointers, `repo_ref`, repo-over-conversation | `capture` A2 |
+| 9 | recon conventions | `map-project` |
 
 `§8` (what does not become a note) and `§10` (related) are conventional, not load-bearing.
 
@@ -114,13 +114,13 @@ A present-but-incomplete contract is worse than a missing one: the skills load i
 | namespaces declared | Pass. |
 | present but empty or namespace-less | **Fail** — a closed vocabulary with nothing in it blocks every tagged write. Patch it. |
 
-Do **not** audit the vault's actual tags against this file here. That is `vam-kb-organize` pass 3.
+Do **not** audit the vault's actual tags against this file here. That is `organize` pass 3.
 
 ### D7 · Recon environment — optional
 
 **Probe:** does `_meta/recon-environment.md` exist?
 
-Absent is **not a failure**. Only `vam-project-recon` reads it, and that skill degrades to asking for a repo path once. Report it as *not applicable* unless the user intends to use recon, then offer the template.
+Absent is **not a failure**. Only `map-project` reads it, and that skill degrades to asking for a repo path once. Report it as *not applicable* unless the user intends to use recon, then offer the template.
 
 ---
 
@@ -142,7 +142,7 @@ Report both directions — a folder in §1 that does not exist, and a top-level 
 
 ## Out of scope here
 
-Hand these to `vam-kb-organize` — this skill validates the contract, not the corpus:
+Hand these to `organize` — this skill validates the contract, not the corpus:
 
 - tags in the vault that are absent from the vocabulary
 - notes in the wrong folder, orphans, broken links, duplicates

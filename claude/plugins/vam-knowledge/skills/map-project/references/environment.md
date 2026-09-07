@@ -58,8 +58,8 @@ an absent one.
 
 | Tool | Use |
 |---|---|
-| `vam-kb-recall` skill | The wider vault sweep, when a topic spans more than the project folder. |
-| `vam-kb-organize` skill | Owns the freshness pass that reads the `repo_ref` stamps this skill writes. |
+| `recall` skill | The wider vault sweep, when a topic spans more than the project folder. |
+| `organize` skill | Owns the freshness pass that reads the `repo_ref` stamps this skill writes. |
 | `Explore` / `general-purpose` subagents | Per-question research fan-out. |
 
 Project- or company-specific tools (code-search MCPs, instruction servers,

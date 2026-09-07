@@ -1,9 +1,9 @@
 ---
-name: vam-kb-recall
+name: recall
 description: Read the user's own prior notes out of the Obsidian vault into the current session, before re-solving a problem they already solved. Use when starting work on a topic the user may have notes on, when they ask "what do I know about X", "check my kb/vault/notes", "did I write anything about this", or when a task touches a project, service, or repository the user works on regularly and prior context would help. Strictly read-only - never writes to the vault.
 ---
 
-# vam-kb-recall
+# Recall
 
 The read path. A knowledge base you only write to is a diary; this skill is what makes it a knowledge base.
 
@@ -50,7 +50,7 @@ GAPS
 
 ## Hard rules
 
-- **Read-only.** Never write, patch, move, or delete. If the session produces something new worth keeping, say so and point at `vam-kb-capture` — do not write it here.
+- **Read-only.** Never write, patch, move, or delete. If the session produces something new worth keeping, say so and point at `capture` — do not write it here.
 - **Never present a vault claim as current fact without its status and age.**
 - **Report gaps explicitly.** "Nothing in the vault about X" is a useful answer and a prompt for a future capture.
 - Quote the user's own notes; do not paraphrase them into something they did not say.

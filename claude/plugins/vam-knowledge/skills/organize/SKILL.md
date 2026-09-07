@@ -1,9 +1,9 @@
 ---
-name: vam-kb-organize
+name: organize
 description: Garden and audit the user's Obsidian vault - find orphans, duplicate topics, off-vocabulary tags, stale repo-derived claims, oversized notes needing a split, unfiled notes in other/, and missing MOC entries. Proposes a plan, waits for approval, then applies it. Use when the user asks to organize/clean up/audit/garden the vault, split a note that got too big, check whether notes are still accurate, or file what is sitting in other/. Read-only until the user approves the plan.
 ---
 
-# vam-kb-organize
+# Organize
 
 Periodic gardening for the vault. A knowledge base decays in predictable ways; this skill finds each kind of decay, proposes a fix, and applies it only after approval.
 

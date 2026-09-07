@@ -12,11 +12,11 @@ The knowledge-base loop over an Obsidian vault.
 
 | Skill | Direction | Role |
 |---|---|---|
-| `vam-vault-setup` | diagnose → write on approval | Bootstrap and repair the vault contract the four skills below depend on. Start here on a new vault, or when something is broken. |
-| `vam-kb-recall` | read | Pull prior notes into the session before re-solving something already solved. |
-| `vam-kb-capture` | write | Turn what was learned into a durable, repo-grounded note. |
-| `vam-kb-organize` | read → write on approval | Garden the vault: orphans, duplicates, off-vocabulary tags, stale claims, oversized notes. |
-| `vam-project-recon` | read → write | Map an unfamiliar large codebase level by level, writing findings to the vault. |
+| `vault-setup` | diagnose → write on approval | Bootstrap and repair the vault contract the four skills below depend on. Start here on a new vault, or when something is broken. |
+| `recall` | read | Pull prior notes into the session before re-solving something already solved. |
+| `capture` | write | Turn what was learned into a durable, repo-grounded note. |
+| `organize` | read → write on approval | Garden the vault: orphans, duplicates, off-vocabulary tags, stale claims, oversized notes. |
+| `map-project` | read → write | Map an unfamiliar large codebase level by level, writing findings to the vault. |
 
 **The vault is not wired into this plugin.** `vam-knowledge` ships skills only.
 Which vault they talk to is resolved at runtime from
@@ -34,7 +34,7 @@ claude plugin install vam-vault-kb@vam-ai-units   # or your own vam-vault-<slug>
 - Two contract notes in each vault, which the skills defer to rather than
   inventing their own structure: `_meta/vault-conventions.md` and
   `_meta/tag-vocabulary.md`. Without them the skills refuse to write, by design.
-  **`vam-vault-setup` writes them** — it diagnoses what is missing and
+  **`vault-setup` writes them** — it diagnoses what is missing and
   interviews for the rest, so this is not manual setup.
 
 ### Vault connectors — `vam-vault-*`
@@ -82,7 +82,7 @@ Adding one: the step-by-step is in
 
 | Skill | Role |
 |---|---|
-| `vam-handoff` | Compact the conversation into a document a fresh session can act on. |
+| `handoff` | Compact the conversation into a document a fresh session can act on. |
 
 No prerequisites.
 

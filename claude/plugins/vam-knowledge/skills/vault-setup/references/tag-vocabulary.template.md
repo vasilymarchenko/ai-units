@@ -10,7 +10,7 @@ updated: <YYYY-MM-DD>
 source: <conversation YYYY-MM-DD — vault setup>
 ---
 <!-- TEMPLATE — delete this block once adapted.
-     Written to _meta/tag-vocabulary.md by vam-vault-setup.
+     Written to _meta/tag-vocabulary.md by vault-setup.
      type/* is fixed: it mirrors §2 of vault-conventions and must match it exactly.
      repo/*, tech/*, area/* come from the interview. An empty section is correct
      for a vault that has no projects yet — keep the heading, drop the rows. -->
@@ -18,7 +18,7 @@ source: <conversation YYYY-MM-DD — vault setup>
 
 A **closed, namespaced** tag set. A closed vocabulary is what keeps the vault queryable; free-form tags are how vaults rot.
 
-**Adding a tag is allowed** — but the new tag must be added to this file in the same write that first uses it. `vam-kb-organize` flags any tag in the vault that is absent here.
+**Adding a tag is allowed** — but the new tag must be added to this file in the same write that first uses it. `organize` flags any tag in the vault that is absent here.
 
 ## `type/*` — mirrors the `type` frontmatter field
 

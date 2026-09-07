@@ -1,9 +1,9 @@
 ---
-name: vam-vault-setup
+name: vault-setup
 description: Diagnose, repair, and bootstrap the vault side of the knowledge base — the layer the other kb skills depend on and refuse to run without. Use when a kb skill reports a missing or broken vault contract, when `_meta/vault-conventions.md` or `_meta/tag-vocabulary.md` is absent or incomplete, when no vault tools are present in the session, when the vault reads as empty or the MCP server points at the wrong path, when a new project or technology needs registering in the contract, or when the user says "set up my vault", "start a vault from scratch", "my kb isn't working", "check my vault setup", "why won't it save to Obsidian". Read-only until it has shown a plan and the user has approved it.
 ---
 
-# vam-vault-setup
+# Vault Setup
 
 The other kb skills read the vault contract and refuse to write when it is missing. This skill is what makes the contract exist, and what tells the user why the vault is not working when it isn't.
 
@@ -11,13 +11,13 @@ The other kb skills read the vault contract and refuse to write when it is missi
 
 ## What this owns, and what it does not
 
-| This skill | `vam-kb-organize` |
+| This skill | `organize` |
 |---|---|
 | Does the contract **exist** and is it **well-formed**? | Do the **notes obey** the contract? |
 | Writes and repairs `_meta/*` | Never touches `_meta/*`, except to register a tag |
 | Runs when the vault is broken or brand new | Runs when the vault works and has drifted |
 
-If the contract is sound and the complaint is about the notes, stop and hand off to `vam-kb-organize`. Do not audit note frontmatter here.
+If the contract is sound and the complaint is about the notes, stop and hand off to `organize`. Do not audit note frontmatter here.
 
 ## Which vault
 
@@ -49,7 +49,7 @@ BROKEN
   -> every capture will refuse. Recall works, but with no tag semantics.
 
 NOT APPLICABLE
-  _meta/recon-environment.md   absent; only vam-project-recon reads it
+  _meta/recon-environment.md   absent; only map-project reads it
 
 PLAN
   1. Interview — 6 questions, defaults offered — taxonomy, projects, tags
@@ -86,13 +86,13 @@ Rules that make it survivable:
 
 The templates in `references/` carry the required structure, including the section numbering the other skills cite: `§1` placement, `§2` note types, `§3` frontmatter, `§4` naming, `§5` linking, `§6` skeletons, `§7` grounding, `§9` recon.
 
-**Never renumber those sections.** `vam-kb-capture` and `vam-kb-organize` reference them by number, so a renumbered contract silently misroutes every write instead of failing.
+**Never renumber those sections.** `capture` and `organize` reference them by number, so a renumbered contract silently misroutes every write instead of failing.
 
 | Template | Writes to | When |
 |---|---|---|
 | [`vault-conventions.template.md`](references/vault-conventions.template.md) | `_meta/vault-conventions.md` | required |
 | [`tag-vocabulary.template.md`](references/tag-vocabulary.template.md) | `_meta/tag-vocabulary.md` | required |
-| [`recon-environment.template.md`](references/recon-environment.template.md) | `_meta/recon-environment.md` | only if `vam-project-recon` will be used |
+| [`recon-environment.template.md`](references/recon-environment.template.md) | `_meta/recon-environment.md` | only if `map-project` will be used |
 
 Procedure:
 

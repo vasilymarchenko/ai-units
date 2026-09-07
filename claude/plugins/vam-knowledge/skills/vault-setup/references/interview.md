@@ -60,11 +60,11 @@ The distinction worth stating if the user hesitates: `tech/*` is *what it is bui
 
 ## Q5 — Where are the repos on this machine?
 
-*Absolute paths that `vam-project-recon` should search, in priority order.*
+*Absolute paths that `map-project` should search, in priority order.*
 
 **Default:** skip — write no `_meta/recon-environment.md`. Recon degrades to asking for a path once per session.
 
-**Drives:** §1 of `recon-environment.template.md`. Only ask when the user intends to use `vam-project-recon`.
+**Drives:** §1 of `recon-environment.template.md`. Only ask when the user intends to use `map-project`.
 
 ## Q6 — Any project-specific tooling?
 

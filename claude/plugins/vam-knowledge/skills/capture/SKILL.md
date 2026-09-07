@@ -1,9 +1,9 @@
 ---
-name: vam-kb-capture
-description: Write durable knowledge into the user's Obsidian vault, grounded in the repository. Use when the user says "save this to my kb", "add this to Obsidian", "note this down", "remember this in my vault", or asks for something to be described/documented AND saved (e.g. "describe the architecture of this feature and save it in my kb"). Two modes - retrospective (capture what this conversation established) and generative (research the repo, then write). Do NOT use for the agent's own memory directory, for repo documentation, or for reading the vault (use vam-kb-recall for reading).
+name: capture
+description: Write durable knowledge into the user's Obsidian vault, grounded in the repository. Use when the user says "save this to my kb", "add this to Obsidian", "note this down", "remember this in my vault", or asks for something to be described/documented AND saved (e.g. "describe the architecture of this feature and save it in my kb"). Two modes - retrospective (capture what this conversation established) and generative (research the repo, then write). Do NOT use for the agent's own memory directory, for repo documentation, or for reading the vault (use the vam-knowledge:recall skill for reading).
 ---
 
-# vam-kb-capture
+# Capture
 
 Turn what was learned into a durable note in the Obsidian vault, correctly placed, correctly linked, and grounded in the repo.
 

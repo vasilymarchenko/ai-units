@@ -61,7 +61,7 @@ only if the user names a different one.
 - **The vault contract is per vault.** `_meta/vault-conventions.md` and
   `_meta/tag-vocabulary.md` are read from the resolved vault, not from another
   vault. A vault without them is a vault you do not write to (see
-  `vam-kb-capture` preflight).
+  `capture` preflight).
 - **Missing contract notes usually mean a misconfigured connector, not an
   empty vault.** An unset `VAM_VAULT_<SLUG>` is passed through unexpanded and
   the server still reports connected, so it mounts a path that does not exist.
@@ -69,7 +69,7 @@ only if the user names a different one.
   looks empty entirely — `get_vault_stats` returning nothing is the signal. Say
   so and point at `claude mcp list`, where the tell is a literal `${...}` in the
   server's command line. Do not improvise a taxonomy into what looks like a
-  fresh vault. `vam-vault-setup` owns that diagnosis and the repair — hand off
+  fresh vault. `vault-setup` owns that diagnosis and the repair — hand off
   to it rather than reasoning it out inline.
 
 ## Adding a vault
@@ -85,7 +85,7 @@ only if the user names a different one.
 5. Add the variable to `.env.example`.
 6. On each machine that has the vault: set `VAM_VAULT_<SLUG>`, then
    `claude plugin install vam-vault-<slug>@vam-ai-units`.
-7. Run `vam-vault-setup` against the new vault. It writes
+7. Run `vault-setup` against the new vault. It writes
    `_meta/vault-conventions.md` and `_meta/tag-vocabulary.md`, without which
    every other skill refuses to write, and scaffolds the folders and MOCs the
    contract promises.
