@@ -23,7 +23,7 @@ ai-units/
 │       ├── vam-knowledge/    # skills, vault-agnostic
 │       ├── vam-session/      # skills
 │       └── vaults/           # one connector plugin per vault
-│           └── vam-vault-template/  # copy per vault; real ones need not be committed
+│           └── vam-vault-kb/    # copy per vault; real ones need not be committed
 └── codex/                    # reserved for Codex / other harnesses
 ```
 
@@ -52,19 +52,19 @@ happen to point at the same folder. Nothing is installed inside Obsidian.
 ### 1. Set the vault path
 
 ```powershell
-[Environment]::SetEnvironmentVariable('VAM_VAULT_EXAMPLE', 'D:\Notes\MyVault', 'User')
+[Environment]::SetEnvironmentVariable('VAM_VAULT_KB', 'D:\Notes\MyVault', 'User')
 ```
 
 or, equivalently, in `~/.claude/settings.json`:
 
 ```json
-{ "env": { "VAM_VAULT_EXAMPLE": "D:\\Notes\\MyVault" } }
+{ "env": { "VAM_VAULT_KB": "D:\\Notes\\MyVault" } }
 ```
 
-`VAM_VAULT_EXAMPLE` is the variable the shipped connector reads — that exact
+`VAM_VAULT_KB` is the variable the shipped connector reads — that exact
 name, unless you copy the connector under a new slug (see *Units* below).
 
-**Do this first.** `${VAM_VAULT_EXAMPLE}` is expanded when the MCP server
+**Do this first.** `${VAM_VAULT_KB}` is expanded when the MCP server
 *launches*, not when the plugin installs, so a value set after Claude Code is
 already running has no effect until the restart in step 4. Setting it now means
 one restart instead of two.
@@ -87,9 +87,9 @@ claude plugin marketplace add https://github.com/vasilymarchenko/ai-units.git
 ### 3. Install the plugins
 
 ```powershell
-claude plugin install vam-knowledge@vam-ai-units        # the kb skills
-claude plugin install vam-vault-template@vam-ai-units   # mounts the vault
-claude plugin install vam-session@vam-ai-units          # optional: handoffs
+claude plugin install vam-knowledge@vam-ai-units # the kb skills
+claude plugin install vam-vault-kb@vam-ai-units  # mounts the vault
+claude plugin install vam-session@vam-ai-units   # optional: handoffs
 ```
 
 `vam-knowledge` carries no vault of its own, so the first two are a pair — skills
@@ -110,11 +110,11 @@ claude mcp list
 ```
 
 ```
-plugin:vam-vault-template:obsidian-example: npx @bitbonsai/mcpvault@0.16.0 D:\Notes\MyVault - Connected
+plugin:vam-vault-kb:obsidian-kb: npx @bitbonsai/mcpvault@0.16.0 D:\Notes\MyVault - Connected
 ```
 
 **Read the path, not the word `Connected`.** An unset variable is passed through
-unexpanded and the server still reports success — a literal `${VAM_VAULT_EXAMPLE}`
+unexpanded and the server still reports success — a literal `${VAM_VAULT_KB}`
 in that line is the tell, and it means the vault is mounted at a path that does
 not exist. There is no "missing environment variable" diagnostic for
 plugin-provided servers.
@@ -174,7 +174,7 @@ repo, at the cost of an unannounced upgrade landing between two sessions. To tak
 it, change the version in your connector's `.mcp.json`:
 
 ```json
-"args": ["@bitbonsai/mcpvault@latest", "${VAM_VAULT_EXAMPLE}"]
+"args": ["@bitbonsai/mcpvault@latest", "${VAM_VAULT_KB}"]
 ```
 
 Either way the value lives in the connector plugin, so the choice is per vault.
@@ -184,7 +184,7 @@ Either way the value lives in the connector plugin, so the choice is per vault.
 |---|---|---|---|
 | `vam-knowledge` | skills | `vam-vault-setup`, `vam-kb-recall`, `vam-kb-capture`, `vam-kb-organize`, `vam-project-recon` | a vault connector below |
 | `vam-session` | skills | `vam-handoff` | nothing |
-| `vam-vault-template` | connector | template for an `obsidian-<slug>` MCP server | `npx`, `VAM_VAULT_<SLUG>` |
+| `vam-vault-kb` | connector | the `obsidian-kb` MCP server; copy it per extra vault | `npx`, `VAM_VAULT_KB` |
 
 ### Skills and vaults are separate units
 
@@ -245,7 +245,7 @@ are the truth.
 `.mcp.json` keeps the placeholder verbatim:
 
 ```json
-"args": ["@bitbonsai/mcpvault@0.16.0", "${VAM_VAULT_EXAMPLE}"]
+"args": ["@bitbonsai/mcpvault@0.16.0", "${VAM_VAULT_KB}"]
 ```
 
 Claude Code expands it each time it starts the server, per session, from the

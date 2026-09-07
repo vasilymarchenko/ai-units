@@ -74,7 +74,8 @@ only if the user names a different one.
 
 ## Adding a vault
 
-1. Copy `claude/plugins/vaults/vam-vault-template/` to `vam-vault-<slug>/`.
+1. Copy `claude/plugins/vaults/vam-vault-kb/` to `vam-vault-<slug>/`. A connector
+   is three files and no content, so the shipped one doubles as the template.
 2. In `.mcp.json`: server name `obsidian-<slug>`, path `${VAM_VAULT_<SLUG>}`.
    Append `"--read-only"` to `args` for a vault you only ever recall from.
    The resulting tool prefix is `mcp__plugin_vam-vault-<slug>_obsidian-<slug>__`
@@ -88,6 +89,11 @@ only if the user names a different one.
    `_meta/vault-conventions.md` and `_meta/tag-vocabulary.md`, without which
    every other skill refuses to write, and scaffolds the folders and MOCs the
    contract promises.
+
+**A connector for a vault you would rather not name publicly does not have to
+live in this repo.** The same three files work from any directory registered as
+a marketplace, including one outside version control — steps 4 and 5 then point
+at that marketplace instead.
 
 A connector for a vault you would rather not name publicly does not need to be
 committed at all: the same three files work from `~/.claude/plugins/`.

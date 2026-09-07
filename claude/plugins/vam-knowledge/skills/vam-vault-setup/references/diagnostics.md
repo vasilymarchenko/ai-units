@@ -24,7 +24,7 @@ Every probe here is read-only.
 
 ```powershell
 claude plugin list                                    # is it installed but disabled?
-claude plugin install vam-vault-template@vam-ai-units # or the user's own vam-vault-<slug>
+claude plugin install vam-vault-kb@vam-ai-units # or the user's own vam-vault-<slug>
 ```
 
 Then restart Claude Code. Note the naming constraint while you are here: **discovery matches on the plugin name starting with `vam-vault-`.** A connector named anything else is invisible to every kb skill, however well its server works.

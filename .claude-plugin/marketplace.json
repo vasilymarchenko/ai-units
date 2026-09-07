@@ -23,9 +23,9 @@
       "version": "0.1.1"
     },
     {
-      "name": "vam-vault-template",
-      "description": "Vault connector — mounts an Obsidian vault as the obsidian-<slug> MCP server, reading its path from ${VAM_VAULT_<SLUG>}. Usable as-is for a single vault (obsidian-example / VAM_VAULT_EXAMPLE); copy it to vam-vault-<slug>/ for more.",
-      "source": "./claude/plugins/vaults/vam-vault-template",
+      "name": "vam-vault-kb",
+      "description": "Vault connector — mounts the primary knowledge vault as the obsidian-kb MCP server, reading its path from ${VAM_VAULT_KB}.",
+      "source": "./claude/plugins/vaults/vam-vault-kb",
       "category": "productivity",
       "version": "0.1.1"
     }

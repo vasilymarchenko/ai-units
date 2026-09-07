@@ -1,0 +1,13 @@
+{
+  "name": "vam-vault-kb",
+  "description": "Vault connector: mounts the primary knowledge vault as the obsidian-kb MCP server, reading the path from ${VAM_VAULT_KB}.",
+  "version": "0.1.1",
+  "author": {
+    "name": "Vasyl Marchenko",
+    "email": "vasily.a.marchenko@gmail.com"
+  },
+  "homepage": "https://github.com/vasilymarchenko/ai-units",
+  "repository": "https://github.com/vasilymarchenko/ai-units",
+  "license": "MIT",
+  "keywords": ["obsidian", "vault", "mcp", "connector"]
+}

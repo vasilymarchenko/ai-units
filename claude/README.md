@@ -25,7 +25,7 @@ and the vault itself is mounted by a separate connector plugin. Pair them:
 
 ```powershell
 claude plugin install vam-knowledge@vam-ai-units
-claude plugin install vam-vault-template@vam-ai-units   # or your own vam-vault-<slug>
+claude plugin install vam-vault-kb@vam-ai-units   # or your own vam-vault-<slug>
 ```
 
 **Still machine prerequisites:**
@@ -41,7 +41,11 @@ claude plugin install vam-vault-template@vam-ai-units   # or your own vam-vault-
 
 `mcpvault` serves exactly one vault per process, so **one vault = one MCP server
 = one connector plugin**. Each connector is a `.mcp.json` and a manifest, nothing
-else:
+else.
+
+This section and the ones after it use a hypothetical `vam-vault-example`
+connector for a vault with slug `example`. Substitute your own slug throughout;
+the connector this repo actually ships is `vam-vault-kb`.
 
 ```json
 {
@@ -57,10 +61,7 @@ else:
 
 | Connector | Server | Variable | Mode | Notes |
 |---|---|---|---|---|
-| `vam-vault-template` | `obsidian-example` | `VAM_VAULT_EXAMPLE` | read-write | the shipped template; copy it per real vault |
-
-Examples below use a hypothetical `vam-vault-example` connector for a vault with
-slug `example`. Substitute your own slug throughout.
+| `vam-vault-kb` | `obsidian-kb` | `VAM_VAULT_KB` | read-write | the shipped connector; copy it per extra vault |
 
 Why one plugin per vault rather than one plugin declaring several servers: a
 `.mcp.json` entry cannot be conditionally omitted. `${VAM_VAULT_OTHER:-}` unset
