@@ -22,27 +22,41 @@ vault on this machine"; which directory that is depends entirely on the value of
 ## Install
 
 ```powershell
-[Environment]::SetEnvironmentVariable('VAM_VAULT_KB', 'D:\Notes\MyVault', 'User')
 claude plugin install vam-vault-kb@vam-ai-units
 ```
 
-Restart Claude Code so the variable is in the environment it launches `npx` from,
-then verify with `claude mcp list`:
+Set `VAM_VAULT_KB` in `~/.claude/settings.json` under `env` — a user environment
+variable works too, but only `settings.json` is re-read at every session start:
+
+```json
+{ "env": { "VAM_VAULT_KB": "D:\\Notes\\MyVault" } }
+```
+
+Restart Claude Code, then verify with `claude mcp list`:
 
 ```
 plugin:vam-vault-kb:obsidian-kb: npx @bitbonsai/mcpvault@0.16.0 D:\Notes\MyVault - Connected
 ```
 
-A literal `${VAM_VAULT_KB}` in that line means the variable is unset. The
-server still reports **Connected** — it mounts a path that does not exist — so
-the empty-looking vault that follows is a configuration fault, not an empty
-vault. `vault-setup` owns that diagnosis.
+**Read the path, not the word `Connected`.** Two ways it lies:
+
+- a literal `${VAM_VAULT_KB}` means the variable is unset, or spelled differently
+  from the name this connector expands. The server still reports **Connected** —
+  it mounts a path that does not exist — so the empty-looking vault that follows
+  is a configuration fault, not an empty vault;
+- the **previous** path, after you changed it, means the value came from a stale
+  process environment. A desktop app that keeps a background process alive can
+  carry the old environment across what looks like a full restart. Putting the
+  value in `settings.json` makes that impossible.
 
 ## After installing
 
-Run `/vam-knowledge:vault-setup` once against this vault. It writes
-`_meta/vault-conventions.md` and `_meta/tag-vocabulary.md`; without them every
-other `vam-knowledge` skill refuses to write.
+Nothing to set up. There is no vault contract, and `vam-knowledge:save` creates
+the folder tree lazily on the first write.
+
+Consider putting the vault in a git repo anyway. A save *merges* into the note it
+already wrote, so it can rewrite a file edited by hand in Obsidian, and a version
+history is the undo. The skills never run `git` themselves — that stays yours.
 
 Nothing hardcodes this connector. The skills enumerate `mcp__plugin_vam-vault-*`
 at runtime and resolve which vault to use per

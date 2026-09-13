@@ -8,15 +8,18 @@ it must stay at the repo root for Claude Code to discover it.
 
 ### `vam-knowledge`
 
-The knowledge-base loop over an Obsidian vault.
+A ticket-bound knowledge base over an Obsidian vault.
 
 | Skill | Direction | Role |
 |---|---|---|
-| `vault-setup` | diagnose → write on approval | Bootstrap and repair the vault contract the four skills below depend on. Start here on a new vault, or when something is broken. |
-| `recall` | read | Pull prior notes into the session before re-solving something already solved. |
-| `capture` | write | Turn what was learned into a durable, repo-grounded note. |
-| `organize` | read → write on approval | Garden the vault: orphans, duplicates, off-vocabulary tags, stale claims, oversized notes. |
-| `map-project` | read → write | Map an unfamiliar large codebase level by level, writing findings to the vault. |
+| `save` | read → write | Write what the session produced — an explanation, a message draft, a finding — into `tickets/<TICKET>/` as a standalone document. A follow-up merges into the existing note. |
+| `recall` | read | Pull prior notes back into the session, by ticket or by topic, before re-solving something already solved. |
+
+Everything is filed under a ticket, with a hub note per ticket carrying the problem
+in the user's own words. Retrieval is by ticket, by open free-text `topics`, and by
+full-text search. There is deliberately **no** long-term-knowledge tree, no closed
+tag vocabulary, no MOCs and no gardening skill — all four were tried and cut, and
+the reasons are in the skills themselves.
 
 **The vault is not wired into this plugin.** `vam-knowledge` ships skills only.
 Which vault they talk to is resolved at runtime from
@@ -31,11 +34,16 @@ claude plugin install vam-vault-kb@vam-ai-units   # or your own vam-vault-<slug>
 **Still machine prerequisites:**
 
 - `npx` on PATH (Node.js).
-- Two contract notes in each vault, which the skills defer to rather than
-  inventing their own structure: `_meta/vault-conventions.md` and
-  `_meta/tag-vocabulary.md`. Without them the skills refuse to write, by design.
-  **`vault-setup` writes them** — it diagnoses what is missing and
-  interviews for the rest, so this is not manual setup.
+- Some way to undo a bad write — the vault in a git repo, or Obsidian's file
+  recovery. A save *merges* into the note it already wrote, so it can rewrite a
+  file you edited by hand. The skill does not manage that for you: it never runs
+  `git`, and versioning the vault is the user's own practice.
+
+There is no vault contract to bootstrap, and nothing to scaffold. The folder
+shape, note types and frontmatter schema live in the skills, in this repo — never
+in the vault. An earlier design kept a copy in `_meta/vault-conventions.md`, and
+the executed rules drifted from the documented ones. A vault holds notes; what
+produced them is documented here.
 
 ### Vault connectors — `vam-vault-*`
 
@@ -129,11 +137,18 @@ A literal `${...}` in that line is the tell. There is no "missing environment
 variable" diagnostic for plugin-provided servers the way there is for ones
 declared in `~/.claude.json`.
 
-The real guard is the vault contract, not the connector: the skills read
-`_meta/vault-conventions.md` before writing, and a bogus vault does not have it,
-so a write is refused. `vaults.md` tells them to suspect an unset variable when
-that file is missing. Belt and braces — but check `claude mcp list` after
-setting up a machine rather than trusting a green tick.
+The second guard is thin, deliberately. `save` checks the vault root once per
+session and stops when it finds folders that are not `tickets/` or `inbox/` — that
+catches the dangerous case, a full but *wrong* vault. It cannot catch an empty one,
+because an empty vault is also what a correct new vault looks like. So check
+`claude mcp list` after setting up a machine, and read the path rather than
+trusting the green tick.
+
+The same applies to a path that *changed*. `settings.json` `env` is re-read every
+session, but the process environment is not — a desktop app that keeps a
+background process alive hands the same stale environment block to a new window,
+so a user environment variable can survive what looks like a full restart. Keep
+vault paths in `settings.json` for that reason.
 
 Correct output looks like:
 

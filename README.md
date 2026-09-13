@@ -51,18 +51,28 @@ happen to point at the same folder. Nothing is installed inside Obsidian.
 
 ### 1. Set the vault path
 
-```powershell
-[Environment]::SetEnvironmentVariable('VAM_VAULT_KB', 'D:\Notes\MyVault', 'User')
-```
-
-or, equivalently, in `~/.claude/settings.json`:
+In `~/.claude/settings.json`:
 
 ```json
 { "env": { "VAM_VAULT_KB": "D:\\Notes\\MyVault" } }
 ```
 
+A user environment variable also works, and has the advantage of being visible to
+tools outside Claude Code:
+
+```powershell
+[Environment]::SetEnvironmentVariable('VAM_VAULT_KB', 'D:\Notes\MyVault', 'User')
+```
+
+**Prefer `settings.json`.** It is read fresh at every session start. A user
+environment variable reaches Claude Code only through the process environment,
+which a still-running background process can keep stale across what looks like a
+full restart — see *If something is wrong*.
+
 `VAM_VAULT_KB` is the variable the shipped connector reads — that exact
-name, unless you copy the connector under a new slug (see *Units* below).
+name, unless you copy the connector under a new slug (see *Units* below). A
+near-miss spelling is not an error: the placeholder simply falls through to the
+environment, and you get the wrong vault or none.
 
 **Do this first.** `${VAM_VAULT_KB}` is expanded when the MCP server
 *launches*, not when the plugin installs, so a value set after Claude Code is
@@ -119,36 +129,41 @@ in that line is the tell, and it means the vault is mounted at a path that does
 not exist. There is no "missing environment variable" diagnostic for
 plugin-provided servers.
 
-### 6. Bootstrap the vault contract
+### 6. Nothing to bootstrap
 
-In Claude Code:
+There is no setup step for the vault itself. `save` creates `tickets/<TICKET>/` on
+its first write, and an empty vault is the expected starting state.
 
-```
-/vam-knowledge:vault-setup
-```
+Worth knowing before the first save: a follow-up save **merges** into the note it
+already wrote — read, integrate, write the whole file back — which is what keeps a
+subject in one place instead of six near-duplicates. It also means a file you
+edited by hand in Obsidian can be rewritten. Keeping the vault in a git repo, or
+leaving Obsidian's file recovery on, gives you an undo. That is your setup, not the
+skill's: `save` never runs `git`, stages nothing and commits nothing.
 
-The skills defer to two notes inside the vault — `_meta/vault-conventions.md`
-(folder taxonomy, note types, frontmatter schema) and `_meta/tag-vocabulary.md`
-(the closed tag set) — rather than imposing a structure on someone's vault.
-**Until those exist, every write refuses**, by design.
-
-`vault-setup` diagnoses what is missing, asks about six questions with a
-default for each, writes both notes, and scaffolds the folders and MOCs they
-describe. It is also the thing to run when something breaks later: it checks the
-connector, the path expansion, read-only mode, and whether the contract is
-complete. An existing vault is patched, never overwritten.
+There is no vault contract to bootstrap either. The folder shape, the note types
+and the frontmatter schema live in the skills, in this repo — never in notes inside
+the vault. An earlier design kept a copy there and the two drifted. So a vault the
+skills have never written to is simply empty, and that is correct.
 
 ### 7. Use it
 
 | Say | Skill |
 |---|---|
-| "what do I know about X" | `vam-knowledge:recall` |
-| "save this to my kb" | `vam-knowledge:capture` |
-| "organize / audit my vault" | `vam-knowledge:organize` |
-| "help me map this codebase" | `vam-knowledge:map-project` |
+| "save this explanation in plain Ukrainian" | `vam-knowledge:save` |
+| "save a draft of the security comment" | `vam-knowledge:save` |
+| "update the draft" | `vam-knowledge:save` |
+| "what do I have on ABC-1234" | `vam-knowledge:recall` |
+| "did I ever do something like this" | `vam-knowledge:recall` |
 | "hand this off" | `vam-session:handoff` |
 
 Skills trigger from intent, so invoking them by name is optional.
+
+`save` is ticket-bound: a note lands in `tickets/<TICKET>/`, under a hub note that
+carries the problem in the user's own words plus a list of everything filed against
+that ticket. A save with no ticket in sight goes to `inbox/`. Retrieval is by
+ticket, by open free-text `topics`, and by full-text search — there is no taxonomy
+to learn and nothing to garden.
 
 ### If something is wrong
 
@@ -156,12 +171,18 @@ Skills trigger from intent, so invoking them by name is optional.
 |---|---|
 | no vault tools in session | connector not installed or not enabled — `claude plugin list` |
 | `${...}` in `claude mcp list` | variable unset, or set after launch without a restart |
-| "the vault contract is missing" | step 6 not done |
+| the **old** path in `claude mcp list` | the variable is not in `~/.claude/settings.json` under that exact name, so the stale process environment won — see below |
+| notes land somewhere unexpected, or `save` stops on the vault shape | wrong vault mounted — read the path in `claude mcp list` |
 | writes refused, reads fine | connector has `--read-only` in its `args` |
 | a skill appears twice | same skill in `~/.claude/skills/` *and* a plugin — delete the personal copy |
 
-`/vam-knowledge:vault-setup` diagnoses all of these; the table is for when you would rather
-not ask.
+**On that third row.** A changed path can survive a restart. `settings.json` `env`
+is read fresh every session, but the process environment is not: a desktop app that
+keeps a background process alive hands the same old environment block to the new
+window. So set the value in `~/.claude/settings.json` rather than relying on a user
+environment variable — settings win, and the trap cannot recur. Check the *name*
+too: the connector expands one exact variable, and a near-miss spelling silently
+falls through to the stale environment.
 
 ### A note on the pinned connector
 
@@ -182,7 +203,7 @@ Either way the value lives in the connector plugin, so the choice is per vault.
 
 | Plugin | Kind | Contents | Needs |
 |---|---|---|---|
-| `vam-knowledge` | skills | `vault-setup`, `recall`, `capture`, `organize`, `map-project` | a vault connector below |
+| `vam-knowledge` | skills | `save`, `recall` | a vault connector below |
 | `vam-session` | skills | `handoff` | nothing |
 | `vam-vault-kb` | connector | the `obsidian-kb` MCP server; copy it per extra vault | `npx`, `VAM_VAULT_KB` |
 
@@ -216,7 +237,7 @@ enabled plugin's `skills/`:
 
 ```
 ~/.claude/plugins/cache/vam-ai-units/
-├── vam-knowledge/0.5.0/          # .claude-plugin/, references/, skills/
+├── vam-knowledge/0.6.0/          # .claude-plugin/, references/, skills/
 ├── vam-session/0.2.0/  
 └── vam-vault-<slug>/0.1.1/      # .mcp.json
 ```
