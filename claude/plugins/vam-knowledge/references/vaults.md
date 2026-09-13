@@ -29,9 +29,9 @@ with `mcp__plugin_vam-vault-` belongs to a vault connector, and the slug is the
 segment after `vam-vault-`. A machine that has one vault shows one prefix; a
 machine with none shows none, and that is the answer, not an error.
 
-Per-vault facts — what the vault is for, whether it is the primary, anything
-local — belong in that vault's own `_meta/vault-conventions.md`, not in this
-file. This plugin ships no knowledge of any particular vault.
+This plugin ships no knowledge of any particular vault, and vaults carry no
+self-description either. What a vault is for is known from its slug and from the
+user, not from a note inside it.
 
 **Read-only vaults announce themselves.** A connector passing `--read-only`
 simply has no write tools. Absence of `write_note` *is* the read-only marker.
@@ -42,8 +42,8 @@ simply has no write tools. Absence of `write_note` *is* the read-only marker.
 2. **Exactly one vault is present in the session** → use it. Do not ask. This
    is the common case and it must be silent. Vault tools are recognisable by the
    `mcp__plugin_vam-vault-*` prefix.
-3. **Several are present** → read each one's `_meta/vault-conventions.md` and
-   use the one whose stated purpose matches the topic.
+3. **Several are present** → go by the slug, which is the only label a vault
+   has. If the slug does not settle it, treat this as ambiguous and fall to 4.
 4. **Still ambiguous, and the operation writes** → ask once, then reuse the
    answer for the rest of the session. Never guess on a write.
 
@@ -58,19 +58,22 @@ only if the user names a different one.
   missing, that is the answer, not an error to route around.
 - **Say which vault you used** when more than one is present in the session.
   Silence is fine when there is only one.
-- **The vault contract is per vault.** `_meta/vault-conventions.md` and
-  `_meta/tag-vocabulary.md` are read from the resolved vault, not from another
-  vault. A vault without them is a vault you do not write to (see
-  `capture` preflight).
-- **Missing contract notes usually mean a misconfigured connector, not an
-  empty vault.** An unset `VAM_VAULT_<SLUG>` is passed through unexpanded and
-  the server still reports connected, so it mounts a path that does not exist.
-  Before telling the user their vault has no contract, check whether the vault
-  looks empty entirely — `get_vault_stats` returning nothing is the signal. Say
-  so and point at `claude mcp list`, where the tell is a literal `${...}` in the
-  server's command line. Do not improvise a taxonomy into what looks like a
-  fresh vault. `vault-setup` owns that diagnosis and the repair — hand off
-  to it rather than reasoning it out inline.
+- **There is no vault contract to read.** The folder shape, note types and
+  frontmatter schema live in the skills, in this repo — nowhere inside the vault.
+  There is nothing to bootstrap, nothing to validate, and no note to keep in step
+  with the skills.
+- **A vault that reads as empty usually means a misconfigured connector.** An
+  unset or misspelled `VAM_VAULT_<SLUG>` is passed through unexpanded and the
+  server still reports connected, so it mounts a path that does not exist.
+  `get_vault_stats` returning nothing is the signal. Say so and point at
+  `claude mcp list` — the tell is a literal `${...}` in the server's command line,
+  or simply the wrong path. **Read the path, not the word `Connected`.**
+- **A stale path can survive a restart.** `settings.json` `env` is re-read every
+  session; the process environment is not. A desktop app that keeps a background
+  process alive hands the same old environment to a new window, so a user
+  environment variable set between sessions may never arrive. If the printed path
+  is the *previous* vault, that is the cause — the fix is to put the variable in
+  `~/.claude/settings.json` under the exact name the connector expands.
 
 ## Adding a vault
 
@@ -83,20 +86,19 @@ only if the user names a different one.
 3. In `.claude-plugin/plugin.json`: bump `name`, rewrite `description`.
 4. Add the plugin to `.claude-plugin/marketplace.json`.
 5. Add the variable to `.env.example`.
-6. On each machine that has the vault: set `VAM_VAULT_<SLUG>`, then
-   `claude plugin install vam-vault-<slug>@vam-ai-units`.
-7. Run `vault-setup` against the new vault. It writes
-   `_meta/vault-conventions.md` and `_meta/tag-vocabulary.md`, without which
-   every other skill refuses to write, and scaffolds the folders and MOCs the
-   contract promises.
+6. On each machine that has the vault: set `VAM_VAULT_<SLUG>` in
+   `~/.claude/settings.json`, then
+   `claude plugin install vam-vault-<slug>@vam-ai-units`, then restart and verify
+   the path with `claude mcp list`.
+7. Nothing scaffolds the vault — `save` creates `tickets/<TICKET>/` lazily on the
+   first write, and an empty vault is the expected starting state. A vault kept in
+   a git repo has an undo for a bad merge, but no skill runs `git`; that is the
+   user's own practice.
 
 **A connector for a vault you would rather not name publicly does not have to
 live in this repo.** The same three files work from any directory registered as
 a marketplace, including one outside version control — steps 4 and 5 then point
 at that marketplace instead.
-
-A connector for a vault you would rather not name publicly does not need to be
-committed at all: the same three files work from `~/.claude/plugins/`.
 
 Cost per installed vault is roughly 18 always-on tool schemas, so install only
 the vaults a machine actually uses.

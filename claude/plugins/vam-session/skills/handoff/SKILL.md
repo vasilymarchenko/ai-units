@@ -98,7 +98,7 @@ Resolve the target directory in this order and stop at the first hit:
 
 **Chat / Cowork** (detectable by `/mnt/user-data/outputs` existing) overrides all of the above: write there and **present** the file for download. A file written but not presented is unreachable, which defeats the point.
 
-**Filename:** `handoff-<topic>-<YYYY-MM-DD>.md`, topic in kebab-case. Take the date from session context; do not shell out for it. If that exact filename already exists, do not overwrite — add a one-word qualifier naming what makes this one different (`handoff-apd-8031-plan-2026-08-27.md`).
+**Filename:** `handoff-<topic>-<YYYY-MM-DD>.md`, topic in kebab-case. Take the date from session context; do not shell out for it. If that exact filename already exists, do not overwrite — add a one-word qualifier naming what makes this one different (`handoff-abc-1234-plan-2026-08-27.md`).
 
 **Do nothing with git.** The target is a local-only directory by construction — that is the entire reason it is the target. Do not read, grep, or reason about `.gitignore`, do not run `git check-ignore`, do not offer to add an ignore entry, and do not stage or commit. Making the location untracked is one-time setup that belongs to the user (see *Setup*), not a per-invocation check. If the user has not done that setup, the handoff shows up in `git status` and they will notice; that is a far cheaper failure than a note-taking skill proposing edits to a tracked file.
 
