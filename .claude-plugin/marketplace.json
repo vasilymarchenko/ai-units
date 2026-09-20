@@ -28,6 +28,13 @@
       "source": "./claude/plugins/vaults/vam-vault-kb",
       "category": "productivity",
       "version": "0.1.1"
+    },
+    {
+      "name": "vam-sdlc",
+      "description": "Full SDLC pipeline for Claude Code: a 12-stage ideation-to-ship backbone (map-architecture, PRD, architecture/ADR, data model, API contracts, task DAG, test plan, TDD implementation, review, ship) plus cross-cutting utilities for sizing, glossary, roadmap, UI design specs, live UI verification and end-user documentation. Vendored from genkovich/agentic-engineering-course, MIT.",
+      "source": "./claude/plugins/vam-sdlc",
+      "category": "productivity",
+      "version": "4.5.1"
     }
   ]
 }
