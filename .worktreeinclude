@@ -1,0 +1,13 @@
+# Gitignored files copied into every worktree Claude Code creates with git.
+# .gitignore syntax; a file is copied only if it matches AND is gitignored.
+# Does NOT apply to worktrees made by hand with `git worktree add`.
+
+# Secrets / machine-local env
+.env
+.env.local
+
+# Saved permission approvals. Claude Code normally keeps these in the main
+# checkout and shares them across worktrees, but on Windows they stay with
+# the worktree — so carry them over. Named explicitly because `.claude/` is
+# wholly gitignored and a `**/` pattern would not reach into it.
+.claude/settings.local.json
