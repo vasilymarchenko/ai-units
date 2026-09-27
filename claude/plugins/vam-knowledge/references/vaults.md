@@ -90,8 +90,9 @@ only if the user names a different one.
    `~/.claude/settings.json`, then
    `claude plugin install vam-vault-<slug>@vam-ai-units`, then restart and verify
    the path with `claude mcp list`.
-7. Nothing scaffolds the vault — `save` creates `tickets/<TICKET>/` lazily on the
-   first write, and an empty vault is the expected starting state. A vault kept in
+7. Nothing scaffolds the vault — `save` creates `tickets/<TICKET>/` and
+   `knowledge/<area>/` lazily on the first write into each, and an empty vault is
+   the expected starting state. A vault kept in
    a git repo has an undo for a bad merge, but no skill runs `git`; that is the
    user's own practice.
 

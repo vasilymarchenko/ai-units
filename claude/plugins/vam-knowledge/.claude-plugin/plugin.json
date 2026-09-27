@@ -1,7 +1,7 @@
 {
   "name": "vam-knowledge",
-  "description": "Ticket-bound personal knowledge base: save what a session produced — an explanation, a draft of a message, a finding — into an Obsidian vault as a standalone document filed under its ticket, and recall it later by ticket, topic or full-text search. A follow-up save merges into the existing note instead of piling up duplicates. Vault-agnostic: the target vault is resolved at runtime from references/vaults.md, and mounted by a separate vam-vault-* connector plugin.",
-  "version": "0.6.0",
+  "description": "Personal knowledge base: save what a session produced — an explanation, a draft of a message, a finding — into an Obsidian vault as a standalone document, filed under its ticket or, when it is lasting knowledge, under a flat knowledge area; recall it later by ticket, area, topic or full-text search. A follow-up save merges into the existing note instead of piling up duplicates. Vault-agnostic: the target vault is resolved at runtime from references/vaults.md, and mounted by a separate vam-vault-* connector plugin.",
+  "version": "0.7.0",
   "author": {
     "name": "Vasyl Marchenko",
     "email": "vasily.a.marchenko@gmail.com"
@@ -14,6 +14,7 @@
     "obsidian",
     "notes",
     "tickets",
-    "jira"
+    "jira",
+    "knowledge-areas"
   ]
 }

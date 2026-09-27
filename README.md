@@ -131,8 +131,9 @@ plugin-provided servers.
 
 ### 6. Nothing to bootstrap
 
-There is no setup step for the vault itself. `save` creates `tickets/<TICKET>/` on
-its first write, and an empty vault is the expected starting state.
+There is no setup step for the vault itself. `save` creates `tickets/<TICKET>/` and
+`knowledge/<area>/` on the first write into each, and an empty vault is the
+expected starting state.
 
 Worth knowing before the first save: a follow-up save **merges** into the note it
 already wrote — read, integrate, write the whole file back — which is what keeps a
@@ -153,17 +154,22 @@ skills have never written to is simply empty, and that is correct.
 | "save this explanation in plain Ukrainian" | `vam-knowledge:save` |
 | "save a draft of the security comment" | `vam-knowledge:save` |
 | "update the draft" | `vam-knowledge:save` |
+| "save this to knowledge" | `vam-knowledge:save` |
 | "what do I have on ABC-1234" | `vam-knowledge:recall` |
+| "what do I know about packages" | `vam-knowledge:recall` |
 | "did I ever do something like this" | `vam-knowledge:recall` |
 | "hand this off" | `vam-session:handoff` |
 
 Skills trigger from intent, so invoking them by name is optional.
 
-`save` is ticket-bound: a note lands in `tickets/<TICKET>/`, under a hub note that
-carries the problem in the user's own words plus a list of everything filed against
-that ticket. A save with no ticket in sight goes to `inbox/`. Retrieval is by
-ticket, by open free-text `topics`, and by full-text search — there is no taxonomy
-to learn and nothing to garden.
+Every note `save` writes has one home. Work bound to one Jira issue lands in
+`tickets/<TICKET>/`; lasting knowledge — how something works, a mental model, a
+setup recipe — lands in `knowledge/<area>/`. Either way it sits under a hub note
+that carries the subject in the user's own words plus a list of everything filed
+there. `save` picks the home from the content and says why in its report line; a
+save with no home in sight goes to `inbox/`. Retrieval is by hub, by open
+free-text `topics`, and by full-text search — areas are flat, so there is no
+taxonomy to learn and nothing to garden.
 
 ### If something is wrong
 
@@ -237,7 +243,7 @@ enabled plugin's `skills/`:
 
 ```
 ~/.claude/plugins/cache/vam-ai-units/
-├── vam-knowledge/0.6.0/          # .claude-plugin/, references/, skills/
+├── vam-knowledge/0.7.0/          # .claude-plugin/, references/, skills/
 ├── vam-session/0.2.0/  
 └── vam-vault-<slug>/0.1.1/      # .mcp.json
 ```

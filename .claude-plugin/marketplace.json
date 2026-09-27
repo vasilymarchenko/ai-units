@@ -10,10 +10,10 @@
   "plugins": [
     {
       "name": "vam-knowledge",
-      "description": "Ticket-bound personal knowledge base — save explanations, message drafts and findings into an Obsidian vault under their ticket, merging on follow-ups, and recall them later by ticket, topic or search. Vault-agnostic — pair it with a vam-vault-* connector.",
+      "description": "Personal knowledge base — save explanations, message drafts and findings into an Obsidian vault under their ticket or a flat knowledge area, merging on follow-ups, and recall them later by ticket, area, topic or search. Vault-agnostic — pair it with a vam-vault-* connector.",
       "source": "./claude/plugins/vam-knowledge",
       "category": "productivity",
-      "version": "0.6.0"
+      "version": "0.7.0"
     },
     {
       "name": "vam-session",

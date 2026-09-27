@@ -8,18 +8,23 @@ it must stay at the repo root for Claude Code to discover it.
 
 ### `vam-knowledge`
 
-A ticket-bound knowledge base over an Obsidian vault.
+A personal knowledge base over an Obsidian vault.
 
 | Skill | Direction | Role |
 |---|---|---|
-| `save` | read → write | Write what the session produced — an explanation, a message draft, a finding — into `tickets/<TICKET>/` as a standalone document. A follow-up merges into the existing note. |
-| `recall` | read | Pull prior notes back into the session, by ticket or by topic, before re-solving something already solved. |
+| `save` | read → write | Write what the session produced — an explanation, a message draft, a finding — as a standalone document into `tickets/<TICKET>/`, or into `knowledge/<area>/` when it is lasting knowledge. A follow-up merges into the existing note. |
+| `recall` | read | Pull prior notes back into the session, by ticket, by area or by topic, before re-solving something already solved. |
 
-Everything is filed under a ticket, with a hub note per ticket carrying the problem
-in the user's own words. Retrieval is by ticket, by open free-text `topics`, and by
-full-text search. There is deliberately **no** long-term-knowledge tree, no closed
-tag vocabulary, no MOCs and no gardening skill — all four were tried and cut, and
-the reasons are in the skills themselves.
+Every note has one home. Work bound to one Jira issue is filed under its ticket;
+knowledge that stays true after the ticket is closed — how a part of the platform
+works, a mental model, an environment recipe — is filed under a knowledge area.
+Each ticket and each area has a hub note carrying the subject in the user's own
+words. Retrieval is by hub, by open free-text `topics`, and by full-text search.
+
+Areas are **flat**, one level deep, created lazily and reused far more often than
+created. There is deliberately **no** knowledge tree, no closed tag vocabulary, no
+MOCs and no gardening skill — all four were tried and cut, and the reasons are in
+the skills themselves.
 
 **The vault is not wired into this plugin.** `vam-knowledge` ships skills only.
 Which vault they talk to is resolved at runtime from
@@ -138,7 +143,8 @@ variable" diagnostic for plugin-provided servers the way there is for ones
 declared in `~/.claude.json`.
 
 The second guard is thin, deliberately. `save` checks the vault root once per
-session and stops when it finds folders that are not `tickets/` or `inbox/` — that
+session and stops when it finds folders that are not `tickets/`, `knowledge/` or
+`inbox/` — that
 catches the dangerous case, a full but *wrong* vault. It cannot catch an empty one,
 because an empty vault is also what a correct new vault looks like. So check
 `claude mcp list` after setting up a machine, and read the path rather than
