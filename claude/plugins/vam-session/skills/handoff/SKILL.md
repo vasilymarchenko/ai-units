@@ -94,7 +94,7 @@ Resolve the target directory in this order and stop at the first hit:
 1. A directory named in the invocation or in the user's message.
 2. **An existing handoffs directory at the repository root** — look case-insensitively (`.personal/handoffs`, `.Personal/handoffs`, `docs/handoffs`). Reuse what is already there. Never create a second directory differing only in case: on Windows they are the same directory, on Linux they are two, and that split is silent until someone syncs the repo across both.
 3. `.personal/handoffs/` at the repository root, created if absent. Not `~/.claude` — that is Claude Code's config directory, and a handoff belongs beside the code it describes.
-4. Not inside a repository: the OS temp directory (`$TMPDIR`, `/tmp`, `%TEMP%`).
+4. Not inside a repository: `.personal/handoffs/` under the user's home directory (`$HOME` on Linux/macOS, `%USERPROFILE%` on Windows), created if absent. Write the home path in its full long form — never an 8.3 short path like `VD88F~1.MAR`. Never use the OS temp directory: it gets cleaned, and the next session cannot find the file there.
 
 **Chat / Cowork** (detectable by `/mnt/user-data/outputs` existing) overrides all of the above: write there and **present** the file for download. A file written but not presented is unreachable, which defeats the point.
 
